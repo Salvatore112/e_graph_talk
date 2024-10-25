@@ -1,2 +1,6 @@
 (library
- (name egraphs))
+ (name egraphs)
+ (libraries ego core)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test)))

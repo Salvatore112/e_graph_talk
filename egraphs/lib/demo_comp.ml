@@ -8,7 +8,7 @@ let expr =
   List [ Atom "/"; List [ Atom "*"; Atom "a"; Atom "2" ]; Atom "2" ]
 ;;
 
-let _ = EGraph.add_sexp graph expr
+let graph_expr = EGraph.add_sexp graph expr
 
 (* Rewrites definition *)
 
@@ -25,13 +25,13 @@ let add_rule from_list into_list =
 ;;
 
 (* a * 2 = a >> 1 *)
+
 add_rule
   (List [ Atom "*"; Atom "?a"; Atom "2" ])
   (List [ Atom ">>"; Atom "?a"; Atom "1" ])
 ;;
 
 (* (a * b) / c = a * (b / c) *)
-
 add_rule
   (List [ Atom "/"; List [ Atom "*"; Atom "?a"; Atom "?b" ]; Atom "?c" ])
   (List [ Atom "*"; Atom "?a"; List [ Atom "/"; Atom "?b"; Atom "?c" ] ])
@@ -45,5 +45,22 @@ add_rule (List [ Atom "*"; Atom "?a"; Atom "1" ]) (Atom "?a")
 
 (* E-graph saturation *)
 
-let g : Odot.graph = EGraph.to_dot graph
-let () = Core.Out_channel.write_all "your_file.dot" ~data:Odot.(string_of_graph g)
+let cost_function score (sym, children) =
+  let node_score =
+    match Symbol.to_string sym with
+    | "*" -> 1.
+    | "/" -> 1.
+    | "<<" -> 5.
+    | "?a" -> 10.
+    | _ -> 0.
+  in
+  node_score +. List.fold_left (fun acc vl -> acc +. score vl) 0. children
+;;
+
+let%test _ = EGraph.extract cost_function graph graph_expr = Atom "a"
+
+(* let%test _ =
+   EGraph.extract cost_function graph graph_expr
+   = List [ Atom "/"; List [ Atom ">>"; Atom "a"; Atom "1" ]; Atom "2" ]
+   ;;
+*)

@@ -1,4 +1,4 @@
 (executable
  (public_name egraphs)
  (name main)
- (libraries egraphs))
+ (libraries egraphs core))
