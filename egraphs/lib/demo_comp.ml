@@ -24,11 +24,11 @@ let add_rule from_list into_list =
   ()
 ;;
 
-(* a * 2 = a >> 1 *)
+(* a * 2 = a << 1 *)
 
 add_rule
   (List [ Atom "*"; Atom "?a"; Atom "2" ])
-  (List [ Atom ">>"; Atom "?a"; Atom "1" ])
+  (List [ Atom "<<"; Atom "?a"; Atom "1" ])
 ;;
 
 (* (a * b) / c = a * (b / c) *)
@@ -61,6 +61,6 @@ let%test _ = EGraph.extract cost_function graph graph_expr = Atom "a"
 
 (* let%test _ =
    EGraph.extract cost_function graph graph_expr
-   = List [ Atom "/"; List [ Atom ">>"; Atom "a"; Atom "1" ]; Atom "2" ]
+   = List [ Atom "/"; List [ Atom "<<"; Atom "a"; Atom "1" ]; Atom "2" ]
    ;;
 *)
