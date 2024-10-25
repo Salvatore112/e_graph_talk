@@ -1,0 +1,26 @@
+strict digraph  {
+subgraph cluster_6 {
+graph [label=e6];
+"(+ a 0)" [label="+"];
+"(- (* (+ a 0) 1) (/ 0 1))" [label="-"];
+"a" [label="a"];
+"(* (+ a 0) 1)" [label="*"];
+  };
+subgraph cluster_3 {
+graph [label=e3];
+"1" [label="1"];
+  };
+subgraph cluster_5 {
+graph [label=e5];
+"(/ 0 1)" [label="/"];
+"0" [label="0"];
+  };
+"(+ a 0)" -> "a";
+"(+ a 0)" -> "0";
+"(- (* (+ a 0) 1) (/ 0 1))" -> "(* (+ a 0) 1)";
+"(- (* (+ a 0) 1) (/ 0 1))" -> "(/ 0 1)";
+"(* (+ a 0) 1)" -> "(+ a 0)";
+"(* (+ a 0) 1)" -> "1";
+"(/ 0 1)" -> "0";
+"(/ 0 1)" -> "1";
+}

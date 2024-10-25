@@ -25,13 +25,13 @@ let add_rule from_list into_list =
 ;;
 
 (* a * 2 = a >> 1 *)
+
 add_rule
   (List [ Atom "*"; Atom "?a"; Atom "2" ])
   (List [ Atom ">>"; Atom "?a"; Atom "1" ])
 ;;
 
 (* (a * b) / c = a * (b / c) *)
-
 add_rule
   (List [ Atom "/"; List [ Atom "*"; Atom "?a"; Atom "?b" ]; Atom "?c" ])
   (List [ Atom "*"; Atom "?a"; List [ Atom "/"; Atom "?b"; Atom "?c" ] ])
@@ -46,4 +46,4 @@ add_rule (List [ Atom "*"; Atom "?a"; Atom "1" ]) (Atom "?a")
 (* E-graph saturation *)
 
 let g : Odot.graph = EGraph.to_dot graph
-let () = Core.Out_channel.write_all "your_file.dot" ~data:Odot.(string_of_graph g)
+let () = Core.Out_channel.write_all "demo_egraph.dot" ~data:Odot.(string_of_graph g)
