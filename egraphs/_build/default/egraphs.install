@@ -1,8 +1,0 @@
-lib: [
-  "_build/install/default/lib/egraphs/META"
-  "_build/install/default/lib/egraphs/dune-package"
-  "_build/install/default/lib/egraphs/opam"
-]
-bin: [
-  "_build/install/default/bin/egraphs"
-]
