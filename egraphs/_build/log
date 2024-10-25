@@ -1,0 +1,6 @@
+# dune init project egraphs
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /home/pasha/.cache/dune/db
+# Workspace root: /home/pasha/e_graph_talk/egraphs
+# Auto-detected concurrency: 20
