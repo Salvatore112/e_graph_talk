@@ -43,10 +43,10 @@ add_rule (List [ Atom "+"; Atom "?a"; Atom "0" ]) (Atom "?a")
 let cost_function score (sym, children) =
   let node_score =
     match Symbol.to_string sym with
-    | "*" -> 1.
-    | "/" -> 1.
-    | "<<" -> 5.
-    | "?a" -> 10.
+    | "*" -> 5.
+    | "/" -> 5.
+    | "<<" -> 1.
+    | "?a" -> 1.
     | _ -> 0.
   in
   node_score +. List.fold_left (fun acc vl -> acc +. score vl) 0. children

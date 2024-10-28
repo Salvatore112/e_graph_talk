@@ -13,7 +13,7 @@ let expr =
     ]
 ;;
 
-let _ = EGraph.add_sexp graph expr
+let graph_expr = EGraph.add_sexp graph expr
 
 (* Rewrites definition *)
 
@@ -34,5 +34,20 @@ let add_rule from_list into_list =
 (* tmp = 15 ** 17 *)
 add_rule (List [ Atom "pow"; List [ Atom "15"; Atom "17" ] ]) (Atom "tmp")
 
-let g : Odot.graph = EGraph.to_dot graph
-let () = Core.Out_channel.write_all "cse.dot" ~data:Odot.(string_of_graph g)
+let cost_function score (sym, children) =
+  let node_score =
+    match Symbol.to_string sym with
+    | "*" -> 5.
+    | "/" -> 5.
+    | "<<" -> 1.
+    | "?a" -> 1.
+    | "pow" -> 10.
+    | _ -> 0.
+  in
+  node_score +. List.fold_left (fun acc vl -> acc +. score vl) 0. children
+;;
+
+let%test _ =
+  EGraph.extract cost_function graph graph_expr
+  = List [ Atom "*"; Atom "tmp"; Atom "tmp"; Atom "tmp" ]
+;;
