@@ -1,6 +1,6 @@
 (library
  (name egraphs)
- (libraries ego core)
+ (libraries ego)
  (inline_tests)
  (preprocess
   (pps ppx_inline_test)))

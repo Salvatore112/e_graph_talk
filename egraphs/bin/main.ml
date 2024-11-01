@@ -35,4 +35,9 @@ let add_rule from_list into_list =
 add_rule (List [ Atom "pow"; List [ Atom "15"; Atom "17" ] ]) (Atom "tmp")
 
 let g : Odot.graph = EGraph.to_dot graph
-let () = Core.Out_channel.write_all "cse.dot" ~data:Odot.(string_of_graph g)
+
+let () =
+  let out_channel = open_out "test.dot" in
+  output_string out_channel (Odot.string_of_graph g);
+  close_out out_channel
+;;

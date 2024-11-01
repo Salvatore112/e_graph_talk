@@ -1,0 +1,24 @@
+strict digraph  {
+subgraph cluster_3 {
+graph [label=e3];
+"(* (pow (15 17)) (pow (15 17)) (pow (15 17)))" [label="*"];
+  };
+subgraph cluster_0 {
+graph [label=e0];
+"17" [label="17"];
+  };
+subgraph cluster_1 {
+graph [label=e1];
+"(15 17)" [label="15"];
+  };
+subgraph cluster_2 {
+graph [label=e2];
+"(pow (15 17))" [label="pow"];
+"tmp" [label="tmp"];
+  };
+"(* (pow (15 17)) (pow (15 17)) (pow (15 17)))" -> "(pow (15 17))";
+"(* (pow (15 17)) (pow (15 17)) (pow (15 17)))" -> "(pow (15 17))";
+"(* (pow (15 17)) (pow (15 17)) (pow (15 17)))" -> "(pow (15 17))";
+"(15 17)" -> "17";
+"(pow (15 17))" -> "(15 17)";
+}
